@@ -61,11 +61,12 @@ def index_video_node(state: VideoAuditState) -> Dict[str, Any]:
         import traceback
         logger.error(f"Video Indexer Failed: {e}")
         return {
-            "errors": [str(e),
+            "errors": [str(e),git add .
                        traceback.format_exc()],
             "final_status": "FAIL",
             "transcript": "", 
-            "ocr_text": []
+            "ocr_text": [],
+            "DEBUG_TEST": "HELLO_FROM_AZURE"
         }
 
 # --- NODE 2: THE COMPLIANCE AUDITOR ---
