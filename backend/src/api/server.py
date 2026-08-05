@@ -17,7 +17,7 @@ from typing import List, Optional
 from dotenv import load_dotenv
 load_dotenv(override=True)  
 # Reads .env file and sets environment variables
-# override=True = .env values replace system environment variables
+# override = True = .env values replace system environment variables
 # Example .env contents:
 #   AZURE_SEARCH_KEY=abc123
 #   APPLICATIONINSIGHTS_CONNECTION_STRING=InstrumentationKey=...
@@ -182,10 +182,11 @@ async def audit_video(request: AuditRequest):
         # ↑ Returns: Final state dictionary with all results
         
         # NOTE: In production, you'd use:
-        # await compliance_graph.ainvoke(initial_inputs)
+        # await compliance_graph.invoke(initial_inputs)
         # ↑ Async version - doesn't block the server while processing
         
         # ========== MAP GRAPH OUTPUT TO API RESPONSE ==========
+        logger.info(f"Final State = {final_state}")
         return AuditResponse(
             session_id=session_id,
             video_id=final_state.get("video_id"),  
@@ -202,13 +203,16 @@ async def audit_video(request: AuditRequest):
         # FastAPI automatically converts this Pydantic object to JSON
 
     except Exception as e:
+        import traceback
         # ========== ERROR HANDLING ==========
-        logger.error(f"Audit Failed: {str(e)}")  
+        #logger.error(f"Audit Failed: {str(e)}") 
+        logger.exception("Audit Failed") 
         # Log the error for debugging
         
         raise HTTPException(
             status_code=500,  # 500 = Internal Server Error
-            detail=f"Workflow Execution Failed: {str(e)}"
+            #detail=f"Workflow Execution Failed: {str(e)}"
+            detail=traceback.format_exc()
             # Returns this error message to the client
         )
         # Example error response:
