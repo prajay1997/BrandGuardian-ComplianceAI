@@ -61,7 +61,7 @@ def index_video_node(state: VideoAuditState) -> Dict[str, Any]:
         import traceback
         logger.error(f"Video Indexer Failed: {e}")
         return {
-            "errors": [str(e),git add .
+            "errors": [str(e),
                        traceback.format_exc()],
             "final_status": "FAIL",
             "transcript": "", 
