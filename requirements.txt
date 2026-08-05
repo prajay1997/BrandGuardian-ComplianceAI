@@ -1201,6 +1201,7 @@ opentelemetry-api==1.43.0 \
     #   opentelemetry-instrumentation-django
     #   opentelemetry-instrumentation-fastapi
     #   opentelemetry-instrumentation-flask
+    #   opentelemetry-instrumentation-httpx
     #   opentelemetry-instrumentation-logging
     #   opentelemetry-instrumentation-psycopg2
     #   opentelemetry-instrumentation-requests
@@ -1218,6 +1219,7 @@ opentelemetry-instrumentation==0.64b0 \
     #   opentelemetry-instrumentation-django
     #   opentelemetry-instrumentation-fastapi
     #   opentelemetry-instrumentation-flask
+    #   opentelemetry-instrumentation-httpx
     #   opentelemetry-instrumentation-logging
     #   opentelemetry-instrumentation-psycopg2
     #   opentelemetry-instrumentation-requests
@@ -1246,6 +1248,10 @@ opentelemetry-instrumentation-flask==0.64b0 \
     --hash=sha256:74d07edba426beae1214bd0aec69bd31a9d0d22c29747b497d5d94c516d1c860 \
     --hash=sha256:bad53249bb68ab62c993dc9a3cb6be13f6ec0934ff658fea426e4d800a1310a2
     # via azure-monitor-opentelemetry
+opentelemetry-instrumentation-httpx==0.64b0 \
+    --hash=sha256:04829e5723941b5ceb0c88b44d63983e226b5c75b2b2e34a57739fdd0e060608 \
+    --hash=sha256:c2cfcd03d3665762860ebd0c28038c6e47fbb48d7942dec31dd75fc634d25c92
+    # via complianceqapipeline
 opentelemetry-instrumentation-logging==0.64b0 \
     --hash=sha256:6435b4d215bf8183e15f7e3416a10ebe1c411810d3411fbfc62667daae3abacb \
     --hash=sha256:9b56f19648798ddb331c206b74d36c5f2a71e5c6b771e96298f167b2b590e40d
@@ -1293,6 +1299,7 @@ opentelemetry-semantic-conventions==0.64b0 \
     #   opentelemetry-instrumentation-django
     #   opentelemetry-instrumentation-fastapi
     #   opentelemetry-instrumentation-flask
+    #   opentelemetry-instrumentation-httpx
     #   opentelemetry-instrumentation-logging
     #   opentelemetry-instrumentation-requests
     #   opentelemetry-instrumentation-urllib
@@ -1307,6 +1314,7 @@ opentelemetry-util-http==0.64b0 \
     #   opentelemetry-instrumentation-django
     #   opentelemetry-instrumentation-fastapi
     #   opentelemetry-instrumentation-flask
+    #   opentelemetry-instrumentation-httpx
     #   opentelemetry-instrumentation-requests
     #   opentelemetry-instrumentation-urllib
     #   opentelemetry-instrumentation-urllib3
@@ -2619,6 +2627,7 @@ wrapt==2.3.0 \
     # via
     #   opentelemetry-instrumentation
     #   opentelemetry-instrumentation-dbapi
+    #   opentelemetry-instrumentation-httpx
     #   opentelemetry-instrumentation-urllib3
 xxhash==3.8.1 \
     --hash=sha256:000435984a0469b0f822fe76f35bddea0f96a4d6521b3339a60a6428cdee1edc \
