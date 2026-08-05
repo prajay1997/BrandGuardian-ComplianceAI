@@ -73,7 +73,10 @@ class VideoIndexerService:
             logger.info("Download complete.")
             return output_path
         except Exception as e:
-            raise Exception(f"YouTube Download Failed: {str(e)}")
+            import traceback
+            logger.exception("YouTube Download Failed")
+            raise Exception(f"YouTube Download Failed: {str(e)}\n\n{traceback.format_exc()}" )
+            #raise Exception(f"YouTube Download Failed: {str(e)}")
 
     # --- UPDATED FUNCTION: Upload Local File ---
     # upload the video to Azure Video Indexer
