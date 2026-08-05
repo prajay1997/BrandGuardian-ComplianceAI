@@ -58,9 +58,11 @@ def index_video_node(state: VideoAuditState) -> Dict[str, Any]:
         return clean_data
 
     except Exception as e:
+        import traceback
         logger.error(f"Video Indexer Failed: {e}")
         return {
-            "errors": [str(e)],
+            "errors": [str(e),
+                       traceback.format_exc()],
             "final_status": "FAIL",
             "transcript": "", 
             "ocr_text": []
