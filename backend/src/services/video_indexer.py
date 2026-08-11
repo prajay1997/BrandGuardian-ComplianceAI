@@ -12,7 +12,9 @@ import requests
 # the YouTube video inside this service.
 # import yt_dlp
 
-from azure.identity import DefaultAzureCredential
+#from azure.identity import DefaultAzureCredential
+
+from azure.identity import ManagedIdentityCredential
 
 logger = logging.getLogger("video-indexer")
 
@@ -28,7 +30,9 @@ class VideoIndexerService:
             "AZURE_VI_NAME",
             "brand-yt-project-prajay"
         )
-        self.credential = DefaultAzureCredential()
+        #self.credential = DefaultAzureCredential()
+        self.credential = ManagedIdentityCredential()
+
 
     def get_access_token(self):
         """Generates an ARM Access Token."""
