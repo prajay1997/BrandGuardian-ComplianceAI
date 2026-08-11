@@ -78,7 +78,7 @@ How many users today ? No Visibility
 
 with :
 /audit endpoint averages 4.5 s ( Indexer takes 3.8 s)
-Error logs show : 12% of audits fail due to Toutube download errors
+Error logs show : 12% of audits fail due to youtube download errors
 Metrics Show : 450 API calls today, 89% success rate
 
 '''

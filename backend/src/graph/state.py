@@ -4,10 +4,10 @@ from typing import Annotated, List, Dict, Optional, Any, TypedDict
 # 1. Define the Schema for a Single Compliance Result
 # This ensures structural consistency for every issue detected by the AI.
 class ComplianceIssue(TypedDict):
-    category: str           # e.g., "FTC_DISCLOSURE"
-    description: str        # Specific detail of the violation
-    severity: str           # "CRITICAL" | "WARNING"
-    timestamp: Optional[str]# Timestamp of occurrence (if applicable)
+    category: str            # e.g., "FTC_DISCLOSURE"
+    description: str         # Specific detail of the violation
+    severity: str            # "CRITICAL" | "WARNING"
+    timestamp: Optional[str] # Timestamp of occurrence (if applicable)
 
 # 2. Define the Global Graph State
 class VideoAuditState(TypedDict):

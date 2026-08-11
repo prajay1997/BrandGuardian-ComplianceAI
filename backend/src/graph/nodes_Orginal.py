@@ -21,57 +21,52 @@ logging.basicConfig(level=logging.INFO)
 
 # --- NODE 1: THE INDEXER ---
 def index_video_node(state: VideoAuditState) -> Dict[str, Any]:
-
-    video_id_input = state.get(
-        "video_id",
-        "vid_demo"
-    )
-
+    """
+    Downloads YouTube video, uploads to Azure VI, and extracts insights.
+    """
+    video_url = state.get("video_url")
+    video_id_input = state.get("video_id", "vid_demo")
+    
+    logger.info(f"--- [Node: Indexer] Processing: {video_url} ---")
+    
+    local_filename = "temp_audit_video.mp4"
+    
     try:
         vi_service = VideoIndexerService()
+        
+        # 1. DOWNLOAD
+        if "youtube.com" in video_url or "youtu.be" in video_url:
+            local_path = vi_service.download_youtube_video(video_url, output_path=local_filename)
+        else:
+            raise Exception("Please provide a valid YouTube URL for this test.")
 
-        # Get Blob SAS URL from environment variable
-        #blob_video_url = os.getenv("AZURE_BLOB_VIDEO_URL")
-        blob_video_url = state.get("video_url")
+        # 2. UPLOAD
+        azure_video_id = vi_service.upload_video(local_path, video_name=video_id_input)
+        logger.info(f"Upload Success. Azure ID: {azure_video_id}")
+        
+        # 3. CLEANUP
+        if os.path.exists(local_path):
+            os.remove(local_path)
 
-        if not blob_video_url:
-            raise Exception(
-                "AZURE_BLOB_VIDEO_URL is not configured."
-            )
-
-        # Send Blob URL to Video Indexer
-        azure_video_id = vi_service.upload_video_from_url(
-            blob_video_url,
-            video_name=video_id_input
-        )
-
-        logger.info(
-            f"Upload Success. Azure ID: {azure_video_id}"
-        )
-
-        # Wait for Video Indexer
-        raw_insights = vi_service.wait_for_processing(
-            azure_video_id
-        )
-
-        # Extract transcript and OCR
-        clean_data = vi_service.extract_data(
-            raw_insights
-        )
-
+        # 4. WAIT
+        raw_insights = vi_service.wait_for_processing(azure_video_id)
+        
+        # 5. EXTRACT
+        clean_data = vi_service.extract_data(raw_insights)
+        
+        logger.info("--- [Node: Indexer] Extraction Complete ---")
         return clean_data
 
     except Exception as e:
-
-        logger.error(
-            f"Video Indexer Failed: {e}"
-        )
-
+        import traceback
+        logger.error(f"Video Indexer Failed: {e}")
         return {
-            "errors": [str(e)],
+            "errors": [str(e),
+                       traceback.format_exc()],
             "final_status": "FAIL",
-            "transcript": "",
-            "ocr_text": []
+            "transcript": "", 
+            "ocr_text": [],
+            "DEBUG_TEST": "HELLO_FROM_AZURE"
         }
 
 # --- NODE 2: THE COMPLIANCE AUDITOR ---
